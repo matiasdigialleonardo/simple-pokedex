@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Untitled Page</title>
+    <link rel="stylesheet" href="dex.css">
+</head>
+<body>
+
+
+<label for="input-text">Enter your text:</label>
+<input type="text" id="user-input">
+<button id="choice-button" type="button">Submit</button>
+
+
+<div id="moveContainer">
+	<div class="containerFlex">
+		<div class="labelsContainer">
+	 		<label class="header" for="levelList">Lvl</label>
+	 		<label class="header" for="moveList">Attack name</label>
+ 		</div>
+  		<div class="listsContainer">
+		    <ul id="levelList">
+		      <!-- List items for the first ul -->
+		    </ul>
+	    	<ul id="moveList">
+	      <!-- List items for the second ul -->
+	    	</ul>
+    	</div>
+    </div>
+</div>
+
+<div id="pokemon-container">
+	<div id="pokemon-name"></div>
+	<div id="pokemon-picture-container">
+		<img id="pokemon-picture">
+	</div>
+	<div id="pokemon-type"></div>
+	<div id="pokemon-weight"></div>
+</div>
+
+
+
+
+
+
+    <script src="dex.js"></script>
+</body>
+</html>

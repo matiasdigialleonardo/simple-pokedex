@@ -1,0 +1,107 @@
+
+ul {
+  list-style-type: none;
+}
+
+
+#moveContainer {
+	position: relative;
+	width: 300px;
+	height: 300px;
+	border: 1px solid #000;
+	overflow: auto;
+}
+
+.containerFlex
+{
+	display: flex;
+	flex-direction: column;
+}
+
+.labelsContainer {
+	display: flex;
+	flex: 1;
+	position: sticky;
+	top: 0;
+	top: 0;
+	background-color: #f2f2f2;	
+}
+
+.labelsContainer label {
+  display: block;
+  width: 100%;
+}
+
+.listsContainer {
+	display: flex;
+	flex: 1;
+	flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+#moveContainer ul {	
+	padding: 10px;
+	margin: 0;
+}
+
+.header {
+	top: 0;
+	background-color: #f2f2f2;
+	padding: 10px;
+}
+
+#levelList,
+#moveList {
+	flex: 1;
+	margin-top: 20px; /* Adjust the margin as needed */
+}
+
+
+
+#pokemon-container {
+	display: flex;
+	flex-direction: column;
+  position: relative;
+  width: 300px;
+  height: 500px;
+  top: 50px;
+  left: 50px;
+  background-color: blue;
+}
+
+#pokemon-container div#pokemon-picture-container {
+  flex: 8;
+}
+
+#pokemon-container div {
+	display: flex;
+  flex-direction: row;
+  flex: 1;
+  padding: 10px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+#pokemon-picture {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#pokemon-name {
+  background-color: lightgray;
+}
+
+#pokemon-picture-container {
+  background-color: lightblue;
+}
+
+#pokemon-type {
+  background-color: lightgreen;
+}
+
+#pokemon-weight {
+  background-color: lightyellow;
+}
