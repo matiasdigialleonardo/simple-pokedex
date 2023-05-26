@@ -6,12 +6,18 @@ function capitalizeFirstLetter(str) {
 const CHOICE_BUTTON = document.getElementById("choice-button");
 const INPUT_CHOICE = document.getElementById("user-input");
 
+pokemonSelectorForm = document.getElementById("pokemon-selector-form");
 
-CHOICE_BUTTON.addEventListener('click', function(e) {
-  let USER_CHOICE = INPUT_CHOICE.value;
+pokemonSelectorForm.addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  const USER_CHOICE = pokemonSelectorForm.elements.userInput.value;
+  console.log(USER_CHOICE);
   fetchPokemonInfo(USER_CHOICE);
   fetchPokemonMoves(USER_CHOICE);
 })
+
+
 
 /* 
 fetch('https://pokeapi.co/api/v2/type/fire')
@@ -89,8 +95,8 @@ async function fetchPokemonInfo(pokemon_name) {
 }
 
 
-  fetchPokemonInfo();
-  fetchPokemonMoves();
+fetchPokemonInfo();
+fetchPokemonMoves();
 
 
 
