@@ -2,24 +2,30 @@ body {
 	background-image: url(dex.png);
 	background-size: cover;
 	background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+
+
 }
 
 ul {
   list-style-type: none;
 }
 
-#moveContainer {
-	position: relative;
-	width: 300px;
-	height: 300px;
-	border: 1px solid #000;
-	overflow: auto;
-}
 
 .containerFlex
 {
+  background-color: whitesmoke;
 	display: flex;
 	flex-direction: column;
+	position: absolute;
+  text-align: center;
+	width: 300px;
+	height: 300px;
+  top: 30vh;
+  left: 55vw;
+	border: 1px solid #000;
+	overflow: auto;
 }
 
 .labelsContainer {
@@ -44,7 +50,8 @@ ul {
   align-items: flex-start;
 }
 
-#moveContainer ul {	
+
+.containerFlex ul {	
 	padding: 10px;
 	margin: 0;
 }
@@ -58,13 +65,12 @@ ul {
 #levelList,
 #moveList {
 	flex: 1;
-	margin-top: 20px; /* Adjust the margin as needed */
 }
 
 #pokemon-container {
 	display: flex;
 	flex-direction: column;
-  position: relative;
+  position: absolute;
   width: 20vw;
   height: 500px;
   top: 35vh;
