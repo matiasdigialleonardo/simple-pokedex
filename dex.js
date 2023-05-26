@@ -61,6 +61,8 @@ async function fetchPokemonMoves(pokemon_name = 'bulbasaur') {
     
     const levelUl = document.getElementById("levelList")
     const moveUl = document.getElementById("moveList")
+    levelUl.innerHTML = '';
+    moveUl.innerHTML = '';
     const moves = pokemonData.moves;
     const filteredMoves = moves
       .filter((move) => move.version_group_details[0].move_learn_method.name === "level-up")
@@ -84,6 +86,8 @@ async function fetchPokemonInfo(pokemon_name) {
   const pokemonPicture = document.getElementById("pokemon-picture");
   const pokemonType = getDiv("pokemon-type");
   const pokemonWeight = getDiv("pokemon-weight");
+
+  pokemonType.innerHTML = '';
 
   pokemonName.textContent = capitalizeFirstLetter(pokemonData.species.name);
   pokemonPicture.src = pokemonData.sprites.front_default;
