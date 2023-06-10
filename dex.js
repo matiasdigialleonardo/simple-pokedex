@@ -9,7 +9,6 @@ pokemonSelectorForm.addEventListener('submit', function(e) {
 
   fetchPokemonInfo(USER_CHOICE);
   fetchPokemonMoves(USER_CHOICE);
-  fetchPokemonStats(USER_CHOICE);
 })
 
 async function getPokemonData(pokemonName = 'bulbasaur') {
@@ -117,12 +116,6 @@ function updateMovesName(moves) {
     let li = createListElement(moveNameTextContent);
     movesUl.appendChild(li);
   });
-}
-
-async function fetchPokemonStats(pokemonName = "bulbasaur") {
-  const pokemonData = await getPokemonData(pokemonName);
-
-  updateStats(pokemonData.stats);
 }
 
 function updateStatsName(stats) {
