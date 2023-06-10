@@ -1,11 +1,11 @@
-//import { capitalizeFirstLetter } from "/src/utilities.js";
+import { capitalizeFirstLetter } from "./src/utils.js";
 
-function capitalizeFirstLetter(str) {
-  return str.charAt(0).toUpperCase() + str.slice(1);
-}
+// function capitalizeFirstLetter(str) {
+//   return str.charAt(0).toUpperCase() + str.slice(1);
+// }
 
 
-pokemonSelectorForm = document.getElementById("pokemon-selector-form");
+let pokemonSelectorForm = document.getElementById("pokemon-selector-form");
 
 pokemonSelectorForm.addEventListener('submit', function(e) {
   e.preventDefault();
@@ -103,7 +103,7 @@ function updateMovesLevel(moves) {
   levelUl.innerHTML = '';
 
   moves.forEach(move => {
-    lvlTextContent = move.version_group_details[0].level_learned_at;
+    let lvlTextContent = move.version_group_details[0].level_learned_at;
 
     createListElement(lvlTextContent, levelUl);
   });
@@ -114,7 +114,7 @@ function updateMovesName(moves) {
   movesUl.innerHTML = '';
 
   moves.forEach(move => {
-    moveNameTextContent = move.move.name;
+    let moveNameTextContent = move.move.name;
 
     createListElement(moveNameTextContent, movesUl);
   });
@@ -134,8 +134,8 @@ function updateStats(stats) {
 
   stats.forEach(stat => {
 
-    statName = stat.stat.name;
-    statValue = stat.base_stat;
+    let statName = stat.stat.name;
+    let statValue = stat.base_stat;
 
     createListElement(statName, statNameUl);
     createListElement(statValue, statValueUl);
