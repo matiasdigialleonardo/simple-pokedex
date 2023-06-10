@@ -46,6 +46,8 @@ async function fetchPokemonInfo(pokemonName) {
   updatePicture(pokemonData.sprites.front_default);
   updateTypes(pokemonData.types);
   updateWeight(pokemonData.weight);
+  updateStatsName(pokemonData.stats);
+  updateStatsValue(pokemonData.stats);
 }
 
 function updateName(name) {
@@ -128,22 +130,32 @@ async function fetchPokemonStats(pokemonName = "bulbasaur") {
   updateStats(pokemonData.stats);
 }
 
-function updateStats(stats) {
+function updateStatsName(stats) {
   const statNameUl = document.getElementById("stat-name-list");
-  const statValueUl = document.getElementById("stat-value-list");
   statNameUl.innerHTML = '';
-  statValueUl.innerHTML = '';
 
   stats.forEach(stat => {
 
     let statName = stat.stat.name;
+
+    let li = createListElement(statName);
+    statNameUl.appendChild(li);
+
+  });
+}
+
+function updateStatsValue(stats) {
+
+  const statValueUl = document.getElementById("stat-value-list");
+
+  statValueUl.innerHTML = '';
+
+  stats.forEach(stat => {
+
     let statValue = stat.base_stat;
 
-    let li1 = createListElement(statName);
-    statNameUl.appendChild(li1);
-
-    let li2 = createListElement(statValue);
-    statValueUl.appendChild(li2);
+    let li = createListElement(statValue);
+    statValueUl.appendChild(li);
   });
 }
 
