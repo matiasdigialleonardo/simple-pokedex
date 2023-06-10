@@ -8,7 +8,6 @@ pokemonSelectorForm.addEventListener('submit', function(e) {
   const USER_CHOICE = pokemonSelectorForm.elements.userInput.value.toLowerCase();
 
   fetchPokemonInfo(USER_CHOICE);
-  fetchPokemonMoves(USER_CHOICE);
 })
 
 async function getPokemonData(pokemonName = 'bulbasaur') {
@@ -42,6 +41,7 @@ async function fetchPokemonInfo(pokemonName) {
   updateWeight(pokemonData.weight);
   updateStatsName(pokemonData.stats);
   updateStatsValue(pokemonData.stats);
+  updateMoves(pokemonData.moves)
 }
 
 function updateName(name) {
@@ -73,10 +73,8 @@ function updateWeight(weight) {
   weightElement.textContent += weight;
 }
 
-async function fetchPokemonMoves(pokemonName = 'bulbasaur') {
-    const pokemonData = await getPokemonData(pokemonName)
-    
-    const filteredMoves = filterMoves(pokemonData.moves);
+async function updateMoves(moves) {
+    const filteredMoves = filterMoves(moves);
 
     updateMovesLevel(filteredMoves);
     updateMovesName(filteredMoves);
