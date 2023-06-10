@@ -28,10 +28,10 @@ async function getPokemonData(pokemonName = 'bulbasaur') {
     }
 }
 
-function createListElement(content, parentElement) {
+function createListElement(content) {
   const li = document.createElement("li");
   li.textContent = content;
-  parentElement.appendChild(li);
+  return li;
 }
 
 function getDiv(divId) {
@@ -105,7 +105,8 @@ function updateMovesLevel(moves) {
   moves.forEach(move => {
     let lvlTextContent = move.version_group_details[0].level_learned_at;
 
-    createListElement(lvlTextContent, levelUl);
+    let li = createListElement(lvlTextContent);
+    levelUl.appendChild(li);
   });
 }
 
@@ -116,7 +117,8 @@ function updateMovesName(moves) {
   moves.forEach(move => {
     let moveNameTextContent = move.move.name;
 
-    createListElement(moveNameTextContent, movesUl);
+    let li = createListElement(moveNameTextContent);
+    movesUl.appendChild(li);
   });
 }
 
@@ -137,13 +139,13 @@ function updateStats(stats) {
     let statName = stat.stat.name;
     let statValue = stat.base_stat;
 
-    createListElement(statName, statNameUl);
-    createListElement(statValue, statValueUl);
+    let li1 = createListElement(statName);
+    statNameUl.appendChild(li1);
 
+    let li2 = createListElement(statValue);
+    statValueUl.appendChild(li2);
   });
 }
-
-
 
 
 fetchPokemonInfo();
