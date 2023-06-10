@@ -1,10 +1,5 @@
 import { capitalizeFirstLetter } from "./src/utils.js";
 
-// function capitalizeFirstLetter(str) {
-//   return str.charAt(0).toUpperCase() + str.slice(1);
-// }
-
-
 let pokemonSelectorForm = document.getElementById("pokemon-selector-form");
 
 pokemonSelectorForm.addEventListener('submit', function(e) {
