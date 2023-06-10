@@ -1,48 +1,31 @@
+//import { capitalizeFirstLetter } from "/src/utilities.js";
+
 function capitalizeFirstLetter(str) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
-
-const CHOICE_BUTTON = document.getElementById("choice-button");
-const INPUT_CHOICE = document.getElementById("user-input");
 
 pokemonSelectorForm = document.getElementById("pokemon-selector-form");
 
 pokemonSelectorForm.addEventListener('submit', function(e) {
   e.preventDefault();
 
-  const USER_CHOICE = pokemonSelectorForm.elements.userInput.value;
-  console.log(USER_CHOICE);
+  const USER_CHOICE = pokemonSelectorForm.elements.userInput.value.toLowerCase();
+
   fetchPokemonInfo(USER_CHOICE);
   fetchPokemonMoves(USER_CHOICE);
+  fetchPokemonStats(USER_CHOICE);
 })
 
-
-
-/* 
-fetch('https://pokeapi.co/api/v2/type/fire')
-  .then(response => response.json())
-  .then(data => {
-    const typeSprites = data.sprites;
-    console.log(typeSprites);
-    // Use the typeSprites object as needed
-  })
-  .catch(error => {
-    console.error('Error:', error);
-  });
-*/
-
-
-async function getPokemonData(pokemon_name = 'bulbasaur') {
+async function getPokemonData(pokemonName = 'bulbasaur') {
   try{
-    const pokemonResponse = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon_name}`);
+    const pokemonResponse = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`);
     const pokemonData = await pokemonResponse.json();
     
     return pokemonData;
     } catch(error) {
       console.error('Error:', error);
     }
-
 }
 
 function createListElement(content, parentElement) {
@@ -51,73 +34,118 @@ function createListElement(content, parentElement) {
   parentElement.appendChild(li);
 }
 
-function getDiv(div_id) {
-  return document.getElementById(div_id);
+function getDiv(divId) {
+  return document.getElementById(divId);
 }
 
+async function fetchPokemonInfo(pokemonName) {
 
-async function fetchPokemonMoves(pokemon_name = 'bulbasaur') {
-    const pokemonData = await getPokemonData(pokemon_name)
-    
-    const levelUl = document.getElementById("levelList")
-    const moveUl = document.getElementById("moveList")
-    levelUl.innerHTML = '';
-    moveUl.innerHTML = '';
-    const moves = pokemonData.moves;
-    const filteredMoves = moves
-      .filter((move) => move.version_group_details[0].move_learn_method.name === "level-up")
-      .sort((a, b) => a.version_group_details[0].level_learned_at - b.version_group_details[0].level_learned_at);
+  const pokemonData = await getPokemonData(pokemonName)
 
-    filteredMoves.forEach(move => {
-      lvlTextContent = move.version_group_details[0].level_learned_at;
-      moveTextContent = move.move.name;
-
-      createListElement(lvlTextContent, levelUl);
-      createListElement(moveTextContent, moveUl);
-    });
+  updateName(pokemonData.species.name);
+  updatePicture(pokemonData.sprites.front_default);
+  updateTypes(pokemonData.types);
+  updateWeight(pokemonData.weight);
 }
 
+function updateName(name) {
+  const nameElement = getDiv("pokemon-name");
+  nameElement.textContent = capitalizeFirstLetter(name);
+}
 
-async function fetchPokemonInfo(pokemon_name) {
+function updatePicture(pictureUrl) {
+  const pictureElement = document.getElementById("pokemon-picture");
+  // Set the source of the pokemon-picture img element to the picture url passed to the function.
+  pictureElement.src = pictureUrl;
+}
 
-  const pokemonData = await getPokemonData(pokemon_name)
-
-  const pokemonName = getDiv("pokemon-name");
-  const pokemonPicture = document.getElementById("pokemon-picture");
-  const pokemonType = getDiv("pokemon-type");
-  const pokemonWeight = getDiv("pokemon-weight");
-
-  pokemonType.innerHTML = '';
-
-  pokemonName.textContent = capitalizeFirstLetter(pokemonData.species.name);
-  pokemonPicture.src = pokemonData.sprites.front_default;
-  pokemonData.types.forEach(type => {
-    pokemonType.textContent += capitalizeFirstLetter(type.type.name) + " ";
+function updateTypes(types) {
+  const typeElement = getDiv("pokemon-type");
+  typeElement.textContent = "Type: ";
+  // for each type in the types array.
+  types.forEach(type => {
+    // Capitalize the first letter of the type name.
+    const capitalizedType = capitalizeFirstLetter(type.type.name);
+    // Add the type name to the type element.
+    typeElement.textContent += capitalizedType + " ";
   })
-  pokemonWeight.textContent = pokemonData.weight;
-
 }
+
+function updateWeight(weight) {
+  const weightElement = getDiv("pokemon-weight");
+  weightElement.textContent = "Weight: ";
+  weightElement.textContent += weight;
+}
+
+async function fetchPokemonMoves(pokemonName = 'bulbasaur') {
+    const pokemonData = await getPokemonData(pokemonName)
+    
+    const filteredMoves = filterMoves(pokemonData.moves);
+
+    updateMovesLevel(filteredMoves);
+    updateMovesName(filteredMoves);
+}
+
+function filterMoves(moves) {
+
+    
+  const filteredMoves = moves
+    // Gets the moves from the first version only if their learn method is "level-up";
+    .filter((move) => move.version_group_details[0].move_learn_method.name === "level-up")
+    // Sorts the moves based on the level they are learned at in ascending order.
+    .sort((a, b) => a.version_group_details[0].level_learned_at - b.version_group_details[0].level_learned_at);
+
+  return filteredMoves;
+}
+
+function updateMovesLevel(moves) {
+  const levelUl = document.getElementById("levelList")
+  levelUl.innerHTML = '';
+
+  moves.forEach(move => {
+    lvlTextContent = move.version_group_details[0].level_learned_at;
+
+    createListElement(lvlTextContent, levelUl);
+  });
+}
+
+function updateMovesName(moves) {
+  const movesUl = document.getElementById("moveList")
+  movesUl.innerHTML = '';
+
+  moves.forEach(move => {
+    moveNameTextContent = move.move.name;
+
+    createListElement(moveNameTextContent, movesUl);
+  });
+}
+
+async function fetchPokemonStats(pokemonName = "bulbasaur") {
+  const pokemonData = await getPokemonData(pokemonName);
+
+  updateStats(pokemonData.stats);
+}
+
+function updateStats(stats) {
+  const statNameUl = document.getElementById("stat-name-list");
+  const statValueUl = document.getElementById("stat-value-list");
+  statNameUl.innerHTML = '';
+  statValueUl.innerHTML = '';
+
+  stats.forEach(stat => {
+
+    statName = stat.stat.name;
+    statValue = stat.base_stat;
+
+    createListElement(statName, statNameUl);
+    createListElement(statValue, statValueUl);
+
+  });
+}
+
+
 
 
 fetchPokemonInfo();
 fetchPokemonMoves();
-
-
-
-/*
-// Getting an image.
-let image = document.createElement('img');
-fetch('https://pokeapi.co/api/v2/pokemon/359')
-  .then(response => response.json())
-  .then(data => {
-    // Process the response data
-    image.src = data["sprites"].front_shiny;
-    container.append(image);
-  })
-  .catch(error => {
-    // Handle any errors that occurred during the API call
-    console.error('Error:', error);
-  });
-*/
-
-
+fetchPokemonStats();
