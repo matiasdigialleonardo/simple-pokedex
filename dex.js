@@ -75,8 +75,6 @@ async function updateMoves(moves) {
 }
 
 function filterMoves(moves) {
-
-    
   const filteredMoves = moves
     // Gets the moves from the first version only if their learn method is "level-up";
     .filter((move) => move.version_group_details[0].move_learn_method.name === "level-up")
