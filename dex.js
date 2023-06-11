@@ -1,4 +1,5 @@
 import { capitalizeFirstLetter } from "./src/utils.js";
+import { getPokemonData } from "./src/data-fetcher.js";
 
 let pokemonSelectorForm = document.getElementById("pokemon-selector-form");
 
@@ -15,17 +16,6 @@ pokemonSelectorForm.addEventListener('submit', async function(e) {
 async function init() {
   let pokemonData = await getPokemonData();
   updatePokemonInfo(pokemonData);
-}
-
-async function getPokemonData(pokemonName = 'bulbasaur') {
-  try{
-    const pokemonResponse = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`);
-    const pokemonData = await pokemonResponse.json();
-    
-    return pokemonData;
-    } catch(error) {
-      console.error('Error:', error);
-    }
 }
 
 function createListElement(content) {
