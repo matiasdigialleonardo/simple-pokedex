@@ -2,12 +2,14 @@ import { capitalizeFirstLetter } from "./src/utils.js";
 
 let pokemonSelectorForm = document.getElementById("pokemon-selector-form");
 
-pokemonSelectorForm.addEventListener('submit', function(e) {
+pokemonSelectorForm.addEventListener('submit', async function(e) {
   e.preventDefault();
 
   const USER_CHOICE = pokemonSelectorForm.elements.userInput.value.toLowerCase();
 
-  fetchPokemonInfo(USER_CHOICE);
+  let pokemonData = await getPokemonData(USER_CHOICE);
+
+  updatePokemonInfo(pokemonData);
 })
 
 async function getPokemonData(pokemonName = 'bulbasaur') {
@@ -31,10 +33,7 @@ function getDiv(divId) {
   return document.getElementById(divId);
 }
 
-async function fetchPokemonInfo(pokemonName) {
-
-  const pokemonData = await getPokemonData(pokemonName)
-
+function updatePokemonInfo(pokemonData) {
   updateName(pokemonData.species.name);
   updatePicture(pokemonData.sprites.front_default);
   updateTypes(pokemonData.types);
@@ -146,6 +145,5 @@ function updateStatsValue(stats) {
 }
 
 
-fetchPokemonInfo();
-fetchPokemonMoves();
-fetchPokemonStats();
+//updatePokemonInfo();
+
