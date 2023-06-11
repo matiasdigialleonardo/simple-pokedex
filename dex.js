@@ -12,6 +12,11 @@ pokemonSelectorForm.addEventListener('submit', async function(e) {
   updatePokemonInfo(pokemonData);
 })
 
+async function init() {
+  let pokemonData = await getPokemonData();
+  updatePokemonInfo(pokemonData);
+}
+
 async function getPokemonData(pokemonName = 'bulbasaur') {
   try{
     const pokemonResponse = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`);
@@ -145,5 +150,4 @@ function updateStatsValue(stats) {
 }
 
 
-//updatePokemonInfo();
-
+init();
